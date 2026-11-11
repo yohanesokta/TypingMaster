@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://boxrigidprop01"]
+
+[ext_resource type="Texture2D" uid="uid://bu5vxifqpqkxn" path="res://icon.svg" id="1_icon"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_box"]
+friction = 0.5
+bounce = 0.2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_box"]
+size = Vector2(50, 50)
+
+[node name="RigidBox" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_box")
+contact_monitor = true
+max_contacts_reported = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_box")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.39, 0.39)
+texture = ExtResource("1_icon")

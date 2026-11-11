@@ -5,56 +5,10 @@
 [ext_resource type="Texture2D" uid="uid://cv744m288pcsl" path="res://assets/character/RED_SAMURAI/Idle.png" id="2_h2yge"]
 [ext_resource type="Texture2D" uid="uid://djlnaarlvlwg0" path="res://assets/character/RED_SAMURAI/Run 2.png" id="3_h2yge"]
 [ext_resource type="Texture2D" uid="uid://cn0mtasbwpq7q" path="res://assets/background/shop_1.png" id="5_lquwl"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lswn8"]
-atlas = ExtResource("5_lquwl")
-region = Rect2(0, 0, 392, 424)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_a6jrf"]
-atlas = ExtResource("5_lquwl")
-region = Rect2(392, 0, 392, 424)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xuqvo"]
-atlas = ExtResource("5_lquwl")
-region = Rect2(784, 0, 392, 424)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qsp4k"]
-atlas = ExtResource("5_lquwl")
-region = Rect2(1176, 0, 392, 424)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kq58d"]
-atlas = ExtResource("5_lquwl")
-region = Rect2(1568, 0, 392, 424)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_seu75"]
-atlas = ExtResource("5_lquwl")
-region = Rect2(1960, 0, 392, 424)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_ivm72"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lswn8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_a6jrf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xuqvo")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qsp4k")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kq58d")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_seu75")
-}],
-"loop": 1,
-"name": &"default",
-"speed": 5.0
-}]
+[ext_resource type="Script" path="res://scripts/camera_controller.gd" id="6_cam"]
+[ext_resource type="Script" path="res://scripts/background_loop.gd" id="7_bg"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="8_plr"]
+[ext_resource type="PackedScene" uid="uid://boxrigidprop01" path="res://scenes/rigid_box.tscn" id="9_box"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ivm72"]
 size = Vector2(1196, 102)
@@ -255,33 +209,124 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="Node2D" type="Node2D" unique_id=680068212]
+[sub_resource type="AtlasTexture" id="AtlasTexture_lswn8"]
+atlas = ExtResource("5_lquwl")
+region = Rect2(0, 0, 392, 424)
 
-[node name="ShopSprites" type="AnimatedSprite2D" parent="." unique_id=679292790]
-position = Vector2(967, 317)
-sprite_frames = SubResource("SpriteFrames_ivm72")
-frame_progress = 0.05611222
+[sub_resource type="AtlasTexture" id="AtlasTexture_a6jrf"]
+atlas = ExtResource("5_lquwl")
+region = Rect2(392, 0, 392, 424)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=366525078]
+[sub_resource type="AtlasTexture" id="AtlasTexture_xuqvo"]
+atlas = ExtResource("5_lquwl")
+region = Rect2(784, 0, 392, 424)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=690359531]
-position = Vector2(597, 584)
+[sub_resource type="AtlasTexture" id="AtlasTexture_qsp4k"]
+atlas = ExtResource("5_lquwl")
+region = Rect2(1176, 0, 392, 424)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kq58d"]
+atlas = ExtResource("5_lquwl")
+region = Rect2(1568, 0, 392, 424)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_seu75"]
+atlas = ExtResource("5_lquwl")
+region = Rect2(1960, 0, 392, 424)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ivm72"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lswn8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a6jrf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xuqvo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qsp4k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kq58d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_seu75")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="CameraController" type="Camera2D" parent="."]
+position = Vector2(576, 324)
+script = ExtResource("6_cam")
+
+[node name="Background" type="Node2D" parent="." node_paths=PackedStringArray("camera")]
+script = ExtResource("7_bg")
+camera = NodePath("../CameraController")
+
+[node name="Segment_0" type="StaticBody2D" parent="Background"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/Segment_0"]
+position = Vector2(598, 584)
 shape = SubResource("RectangleShape2D_ivm72")
 
-[node name="default_background" type="Sprite2D" parent="StaticBody2D/CollisionShape2D" unique_id=1866357802]
-position = Vector2(0, -266)
-scale = Vector2(0.62228984, 0.5865741)
+[node name="default_background" type="Sprite2D" parent="Background/Segment_0"]
+position = Vector2(598, 318)
+scale = Vector2(0.62291667, 0.5865741)
 texture = ExtResource("1_1bvp3")
 
-[node name="Player" type="CharacterBody2D" parent="." unique_id=276845770]
+[node name="ShopSprites" type="AnimatedSprite2D" parent="Background/Segment_0"]
+position = Vector2(967, 317)
+sprite_frames = SubResource("SpriteFrames_ivm72")
+autoplay = "default"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=468949179]
+[node name="Segment_1" type="StaticBody2D" parent="Background"]
+position = Vector2(1196, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/Segment_1"]
+position = Vector2(598, 584)
+shape = SubResource("RectangleShape2D_ivm72")
+
+[node name="default_background" type="Sprite2D" parent="Background/Segment_1"]
+position = Vector2(598, 318)
+scale = Vector2(0.62291667, 0.5865741)
+texture = ExtResource("1_1bvp3")
+
+[node name="Segment_2" type="StaticBody2D" parent="Background"]
+position = Vector2(2392, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/Segment_2"]
+position = Vector2(598, 584)
+shape = SubResource("RectangleShape2D_ivm72")
+
+[node name="default_background" type="Sprite2D" parent="Background/Segment_2"]
+position = Vector2(598, 318)
+scale = Vector2(0.62291667, 0.5865741)
+texture = ExtResource("1_1bvp3")
+
+[node name="Player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("camera")]
+position = Vector2(250, 480)
+script = ExtResource("8_plr")
+camera = NodePath("../CameraController")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 position = Vector2(-0.5, -41.5)
 shape = SubResource("RectangleShape2D_xjvc2")
 
-[node name="PlayerSprites" type="AnimatedSprite2D" parent="Player/CollisionShape2D" unique_id=1735538221]
-position = Vector2(-4.4999924, 1.5)
+[node name="PlayerSprites" type="AnimatedSprite2D" parent="Player"]
+position = Vector2(-5, -40)
 scale = Vector2(1.826923, 1.8269231)
 sprite_frames = SubResource("SpriteFrames_xjvc2")
 animation = &"Run"
-frame_progress = 0.8437902
+autoplay = "Run"
+
+[node name="RigidBox1" parent="." instance=ExtResource("9_box")]
+position = Vector2(650, 480)
+
+[node name="RigidBox2" parent="." instance=ExtResource("9_box")]
+position = Vector2(900, 480)

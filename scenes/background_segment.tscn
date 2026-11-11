@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://bgseg001master"]
+
+[ext_resource type="Texture2D" uid="uid://djg3rvno444xb" path="res://assets/background/background_1.jpg" id="1_bg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
+size = Vector2(1196, 102)
+
+[node name="BackgroundSegment" type="StaticBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(598, 584)
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="default_background" type="Sprite2D" parent="."]
+position = Vector2(598, 318)
+scale = Vector2(0.62291667, 0.5865741)
+texture = ExtResource("1_bg")
