@@ -15,7 +15,16 @@ Sesuai ketentuan, Player bergerak terus ke arah kanan mengikuti laju kamera:
 - Ditambahkan ke vektor vertikal: `velocity += get_gravity() * delta` saat karakter sedang tidak berada di lantai (`!is_on_floor()`).
 - Tombol loncat (`ui_accept` / Spasi) memberi impuls vertikal negatif `jump_velocity = -450.0` saat Player berada di atas lantai atau di atas objek RigidBody.
 
-## 3. Interaksi dengan RigidBody2D ("Semua Rigid Body yang Ada")
+## 3. Interaksi Pertarungan Otomatis dengan Dool
+
+- Ketika Player berada dalam radius `attack_range = 85.0 px` di depan node Dool:
+  1. Player otomatis berhenti bergerak (`velocity.x = 0.0`) dan kamera dihentikan sementara (`is_paused = true`).
+  2. Player melakukan serangan pertama (`Attack`), memicu animasi `hit` pada Dool.
+  3. Player melakukan serangan kedua (`Attack`), memicu animasi `breaking` pada Dool.
+  4. Player beralih ke animasi `Idle` menunggu Dool selesai breaking dan menghilang setelah jeda 2 detik.
+  5. Setelah Dool lenyap, Player otomatis kembali berlari (`velocity.x = speed`, animasi `Run`) dan kamera melanjutkan perjalanan.
+
+## 4. Interaksi dengan RigidBody2D ("Semua Rigid Body yang Ada")
 
 Secara default, Godot menganggap `CharacterBody2D` sebagai benda kinematis dengan massa tak hingga dan tidak mentransfer gaya dorong ke `RigidBody2D`.
 
@@ -30,8 +39,9 @@ Keunggulan metode ini:
 - **Realistis**: Titik kontak kontak dihitung akurat sehingga jika Player menabrak bagian atas kotak, kotak akan berguling atau terdorong ke depan dengan torsi rotasi alami.
 - **Pijakan**: Player dapat berdiri dan berlari di atas RigidBody2D dengan normal kontak ke bawah.
 
-## 4. Animasi Karakter
+## 5. Animasi Karakter
 
 Menggunakan node `PlayerSprites` (`AnimatedSprite2D`):
 - Memutar animasi `&"Run"` saat Player bergerak di lantai.
 - Memutar animasi `&"Idle"` jika karakter berhenti.
+- Memutar animasi `&"Attack"` saat menyerang dool.
