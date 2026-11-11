@@ -12,6 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://5y3ek1elupb0" path="res://assets/enemy/breaking-dool.png" id="10_efxa6"]
 [ext_resource type="Texture2D" uid="uid://gh8owfg32q7j" path="res://assets/enemy/dool-hit.png" id="11_dg77c"]
 [ext_resource type="Script" uid="uid://cm38be8sj22oj" path="res://scripts/dool.gd" id="12_dool"]
+[ext_resource type="Texture2D" uid="uid://deoak01ykx77a" path="res://assets/enemy/slime.png" id="13_ycdy4"]
+[ext_resource type="Script" uid="uid://bnjiu47eyoyn8" path="res://scripts/slime.gd" id="14_slime"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ivm72"]
 size = Vector2(1196, 102)
@@ -399,6 +401,101 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_0cbny"]
+atlas = ExtResource("13_ycdy4")
+region = Rect2(0, 96, 92, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hrvbo"]
+atlas = ExtResource("13_ycdy4")
+region = Rect2(92, 96, 92, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uypp3"]
+atlas = ExtResource("13_ycdy4")
+region = Rect2(184, 96, 92, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_blkrb"]
+atlas = ExtResource("13_ycdy4")
+region = Rect2(276, 96, 92, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_abqjc"]
+atlas = ExtResource("13_ycdy4")
+region = Rect2(0, 192, 92, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6iyjs"]
+atlas = ExtResource("13_ycdy4")
+region = Rect2(92, 192, 92, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4w656"]
+atlas = ExtResource("13_ycdy4")
+region = Rect2(0, 0, 92, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e71vb"]
+atlas = ExtResource("13_ycdy4")
+region = Rect2(92, 0, 92, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rnkwl"]
+atlas = ExtResource("13_ycdy4")
+region = Rect2(184, 0, 92, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vke2r"]
+atlas = ExtResource("13_ycdy4")
+region = Rect2(276, 0, 92, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rtcfj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0cbny")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hrvbo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uypp3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_blkrb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_abqjc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6iyjs")
+}],
+"loop": 0,
+"name": &"green_attack",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4w656")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e71vb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rnkwl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vke2r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vke2r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rnkwl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e71vb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4w656")
+}],
+"loop": 1,
+"name": &"green_idle",
+"speed": 10.0
+}]
+
 [node name="Node2D" type="Node2D" unique_id=889961066]
 
 [node name="CameraController" type="Camera2D" parent="." unique_id=1547357044]
@@ -466,10 +563,10 @@ animation = &"Run"
 autoplay = "Run"
 
 [node name="RigidBox1" parent="." unique_id=400309637 instance=ExtResource("9_box")]
-position = Vector2(650, 480)
+position = Vector2(1050, 480)
 
 [node name="RigidBox2" parent="." unique_id=276615992 instance=ExtResource("9_box")]
-position = Vector2(900, 480)
+position = Vector2(1250, 480)
 
 [node name="dool" type="AnimatedSprite2D" parent="." unique_id=322293555 groups=["dool"]]
 position = Vector2(537.00006, 472.00003)
@@ -477,3 +574,11 @@ scale = Vector2(0.71093744, 0.7109375)
 sprite_frames = SubResource("SpriteFrames_syj8i")
 animation = &"idle"
 script = ExtResource("12_dool")
+
+[node name="Slime" type="AnimatedSprite2D" parent="." unique_id=1852909214 groups=["slime"]]
+position = Vector2(768, 480)
+scale = Vector2(-1, 1)
+sprite_frames = SubResource("SpriteFrames_rtcfj")
+animation = &"green_idle"
+frame_progress = 0.18123235
+script = ExtResource("14_slime")
